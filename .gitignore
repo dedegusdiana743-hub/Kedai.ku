@@ -1,0 +1,29 @@
+.env
+.env.*
+!.env.example
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/uploads/*
+!/storage/uploads/.gitkeep
+/storage/backups/*
+!/storage/backups/.gitkeep
+/public/uploads/*
+!/public/uploads/.gitkeep
+.kilo
+.kilo/
+.DS_Store
+Thumbs.db
+
+# Rahasia dan artefak lokal
+*.pem
+*.ppk
+*.key
+id_rsa*
+id_ed25519*
+*.log
+*.sql.gz
+*.sql.zip
+
+# Dokumen pribadi (tetap ada di komputer, tidak masuk repo)
+Laporan Blueprint_*.docx
+Laporan Blueprint_*.pdf

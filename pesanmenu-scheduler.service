@@ -1,0 +1,11 @@
+[Unit]
+Description=PesanMenu scheduled jobs
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/var/www/pesanmenu
+ExecStart=/usr/bin/php /var/www/pesanmenu/bin/expire-orders.php
+ExecStart=/usr/bin/php /var/www/pesanmenu/bin/reconcile-payments.php
+User=www-data
+Group=www-data
