@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KEDAI KU — Pesan Menu Online</title>
+    <meta name="description" content="KEDAI KU — pesan makanan dan minuman tanpa perlu daftar akun.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#menu">Lewati ke daftar menu</a>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a class="brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true">K</span>
+            <span class="brand-text">
+                <strong>KEDAI KU</strong>
+                <small>Makanan &amp; Minuman</small>
+            </span>
+        </a>
+        <nav class="nav" aria-label="Navigasi utama">
+            <a class="nav-link is-active" href="#menu">Menu</a>
+            <a class="nav-link" href="#cara-order">Cara Order</a>
+            <a class="nav-link" href="#kontak">Kontak</a>
+            <button class="cart-button" type="button" data-cart-open aria-haspopup="dialog">
+                <span aria-hidden="true">🛒</span>
+                <span>Keranjang</span>
+                <span class="cart-badge" data-cart-count hidden>0</span>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="container hero-inner">
+            <p class="eyebrow">Pesan tanpa akun</p>
+            <h1>Cuma pilih menu,<br>kami siapkan untuk Anda.</h1>
+            <p class="hero-text">Tanpa download aplikasi, tanpa daftar. Ambil sendiri di toko atau antar ke alamat Anda.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#menu">Lihat Menu</a>
+                <a class="btn btn-ghost" href="#" data-app-link>Buka versi aplikasi</a>
+            </div>
+            <ul class="hero-facts">
+                <li><strong>10–20 menit</strong><span>Rata-rata penyiapan</span></li>
+                <li><strong>COD &amp; QRIS</strong><span>Pembayaran fleksibel</span></li>
+                <li><strong>Ambil / Antar</strong><span>Pilih sesuai kebutuhan</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section" id="menu">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">Menu hari ini</p>
+                    <h2>Pilih yang paling kamu mau</h2>
+                </div>
+                <div class="filters" role="group" aria-label="Filter kategori">
+                    <button class="chip is-active" type="button" data-filter="all">Semua</button>
+                    <button class="chip" type="button" data-filter="MAKANAN">Makanan</button>
+                    <button class="chip" type="button" data-filter="MINUMAN">Minuman</button>
+                </div>
+            </div>
+
+            <div class="menu-grid" data-menu-list>
+                <article class="menu-card" data-category="MAKANAN" data-name="Nasi Goreng" data-price="13000" data-description="Nasi goreng khas dengan telur dan ayam.">
+                    <div class="menu-media">
+                        <span class="menu-emoji" aria-hidden="true">🍚</span>
+                        <span class="tag">Terlaris</span>
+                    </div>
+                    <div class="menu-body">
+                        <h3>Nasi Goreng</h3>
+                        <p>Nasi goreng khas dengan telur dan ayam.</p>
+                        <div class="menu-foot">
+                            <span class="price">Rp13.000</span>
+                            <button class="btn btn-add" type="button" data-add>+ Keranjang</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="MAKANAN" data-name="Mie Goreng" data-price="8000" data-description="Mie goreng dengan saus, ayam, dan telur.">
+                    <div class="menu-media">
+                        <span class="menu-emoji" aria-hidden="true">🍜</span>
+                    </div>
+                    <div class="menu-body">
+                        <h3>Mie Goreng</h3>
+                        <p>Mie goreng dengan saus, ayam, dan telur.</p>
+                        <div class="menu-foot">
+                            <span class="price">Rp8.000</span>
+                            <button class="btn btn-add" type="button" data-add>+ Keranjang</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="MINUMAN" data-name="Es Jeruk" data-price="5000" data-description="Es jeruk segar dengan potongan jeruk utuh.">
+                    <div class="menu-media">
+                        <span class="menu-emoji" aria-hidden="true">🍊</span>
+                        <span class="tag tag-soft">Segar</span>
+                    </div>
+                    <div class="menu-body">
+                        <h3>Es Jeruk</h3>
+                        <p>Es jeruk segar dengan potongan jeruk utuh.</p>
+                        <div class="menu-foot">
+                            <span class="price">Rp5.000</span>
+                            <button class="btn btn-add" type="button" data-add>+ Keranjang</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-card" data-category="MINUMAN" data-name="Es Teh" data-price="3000" data-description="Es teh manis yang menyegarkan.">
+                    <div class="menu-media">
+                        <span class="menu-emoji" aria-hidden="true">🧋</span>
+                    </div>
+                    <div class="menu-body">
+                        <h3>Es Teh</h3>
+                        <p>Es teh manis yang menyegarkan.</p>
+                        <div class="menu-foot">
+                            <span class="price">Rp3.000</span>
+                            <button class="btn btn-add" type="button" data-add>+ Keranjang</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-soft" id="cara-order">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">Gampang</p>
+                    <h2>Cara order</h2>
+                </div>
+            </div>
+            <ol class="steps">
+                <li><span>1</span><strong>Pilih menu</strong><p>Tambahkan minuman dan makanan favorit ke keranjang.</p></li>
+                <li><span>2</span><strong>Pilih pengiriman</strong><p>Ambil sendiri di toko atau antar ke alamat Anda.</p></li>
+                <li><span>3</span><strong>Bayar saat diterima</strong><p>COD di tempat, atau QRIS bila tersedia.</p></li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="section" id="kontak">
+        <div class="container contact-card">
+            <div>
+                <p class="eyebrow">Hubungi kami</p>
+                <h2>KEDAI KU</h2>
+                <p class="muted">Jl. Contoh No. 1 · Buka setiap hari 09.00–21.00</p>
+            </div>
+            <a class="btn btn-primary" href="https://wa.me/628123456789" target="_blank" rel="noopener">Chat WhatsApp</a>
+        </div>
+    </section>
+</main>
+
+<div class="cart-overlay" data-cart-overlay hidden></div>
+<aside class="cart-panel" data-cart-panel role="dialog" aria-modal="true" aria-label="Keranjang" hidden>
+    <header class="cart-head">
+        <h2>Keranjang</h2>
+        <button class="icon-button" type="button" data-cart-close aria-label="Tutup keranjang">✕</button>
+    </header>
+
+    <div class="cart-body">
+        <div class="cart-items" data-cart-items>
+            <p class="cart-empty" data-cart-empty>Keranjang masih kosong.</p>
+        </div>
+
+        <div class="delivery-switch" role="group" aria-label="Metode pengiriman">
+            <button class="delivery-choice is-selected" type="button" data-delivery="PICKUP">Ambil sendiri</button>
+            <button class="delivery-choice" type="button" data-delivery="DELIVERY">Antar</button>
+        </div>
+
+        <div class="summary">
+            <div class="summary-line"><span>Subtotal</span><strong data-summary-subtotal>Rp0</strong></div>
+            <div class="summary-line"><span>Ongkos antar</span><strong data-summary-shipping>Rp0</strong></div>
+            <div class="summary-line"><span>Pajak (10%)</span><strong data-summary-tax>Rp0</strong></div>
+            <div class="summary-line summary-total"><span>Total</span><strong data-summary-total>Rp0</strong></div>
+        </div>
+    </div>
+
+    <footer class="cart-foot">
+        <a class="btn btn-primary btn-block" href="#" data-checkout data-app-link>Lanjut Checkout</a>
+        <p class="tiny muted">Demo tampilan statis. Pemesanan asli dilakukan di aplikasi PHP + MySQL.</p>
+    </footer>
+</aside>
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+
+<script src="js/app.js" defer></script>
+</body>
+</html>
