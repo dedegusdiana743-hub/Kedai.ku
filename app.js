@@ -22,6 +22,17 @@
     var summaryTax = document.querySelector('[data-summary-tax]');
     var summaryTotal = document.querySelector('[data-summary-total]');
     var deliveryButtons = Array.prototype.slice.call(document.querySelectorAll('[data-delivery]'));
+    var checkoutPanel = document.querySelector('[data-checkout-panel]');
+    var checkoutClose = document.querySelector('[data-checkout-close]');
+    var checkoutBack = document.querySelector('[data-checkout-back]');
+    var checkoutWhatsApp = document.querySelector('[data-checkout-whatsapp]');
+    var checkoutItems = document.querySelector('[data-checkout-items]');
+    var checkoutEmpty = document.querySelector('[data-checkout-empty]');
+    var checkoutSubtotal = document.querySelector('[data-checkout-subtotal]');
+    var checkoutShipping = document.querySelector('[data-checkout-shipping]');
+    var checkoutTax = document.querySelector('[data-checkout-tax]');
+    var checkoutTotal = document.querySelector('[data-checkout-total]');
+    var checkoutDeliveryButtons = Array.prototype.slice.call(document.querySelectorAll('[data-checkout-delivery]'));
 
     var cart = loadCart();
     var delivery = localStorage.getItem(DELIVERY_KEY) === 'DELIVERY' ? 'DELIVERY' : 'PICKUP';
@@ -105,8 +116,9 @@
         renderCart();
     }
 
-    function totals() {
-        var subtotal = cart.reduce(function (sum, item) {
+    function totals(items, delivery) {
+        var list = items || cart;
+        var subtotal = list.reduce(function (sum, item) {
             return sum + item.price * item.qty;
         }, 0);
         var shipping = delivery === 'DELIVERY' && subtotal > 0 ? SHIPPING_FEE : 0;
@@ -178,11 +190,90 @@
             });
         }
 
-        var value = totals();
+        var value = totals(cart, delivery);
         if (summarySubtotal) summarySubtotal.textContent = rupiah(value.subtotal);
         if (summaryShipping) summaryShipping.textContent = rupiah(value.shipping);
         if (summaryTax) summaryTax.textContent = rupiah(value.tax);
         if (summaryTotal) summaryTotal.textContent = rupiah(value.total);
+        renderCheckout();
+    }
+
+    function renderCheckout() {
+        var value = totals(cart, delivery);
+
+        if (checkoutEmpty) {
+            checkoutEmpty.hidden = cart.length > 0;
+        }
+        if (checkoutItems) {
+            checkoutItems.innerHTML = '';
+            cart.forEach(function (item) {
+                var row = document.createElement('div');
+                row.className = 'cart-item';
+
+                var info = document.createElement('div');
+                var name = document.createElement('h4');
+                name.textContent = item.name;
+                var price = document.createElement('small');
+                price.textContent = rupiah(item.price) + ' × ' + item.qty;
+                info.appendChild(name);
+                info.appendChild(price);
+
+                var controls = document.createElement('div');
+                controls.className = 'qty';
+                var minus = document.createElement('button');
+                minus.type = 'button';
+                minus.textContent = '−';
+                minus.setAttribute('aria-label', 'Kurangi ' + item.name);
+                minus.addEventListener('click', function () {
+                    changeQty(item.name, -1);
+                });
+                var qty = document.createElement('span');
+                qty.textContent = String(item.qty);
+                var plus = document.createElement('button');
+                plus.type = 'button';
+                plus.textContent = '+';
+                plus.setAttribute('aria-label', 'Tambah ' + item.name);
+                plus.addEventListener('click', function () {
+                    changeQty(item.name, 1);
+                });
+                var remove = document.createElement('button');
+                remove.type = 'button';
+                remove.className = 'remove';
+                remove.textContent = 'hapus';
+                remove.setAttribute('aria-label', 'Hapus ' + item.name);
+                remove.addEventListener('click', function () {
+                    removeItem(item.name);
+                });
+
+                controls.appendChild(minus);
+                controls.appendChild(qty);
+                controls.appendChild(plus);
+                controls.appendChild(remove);
+                row.appendChild(info);
+                row.appendChild(controls);
+                checkoutItems.appendChild(row);
+            });
+        }
+
+        if (checkoutSubtotal) checkoutSubtotal.textContent = rupiah(value.subtotal);
+        if (checkoutShipping) checkoutShipping.textContent = rupiah(value.shipping);
+        if (checkoutTax) checkoutTax.textContent = rupiah(value.tax);
+        if (checkoutTotal) checkoutTotal.textContent = rupiah(value.total);
+    }
+
+    function openCheckout() {
+        if (cartOverlay) cartOverlay.hidden = true;
+        if (cartPanel) cartPanel.hidden = true;
+        if (checkoutPanel) checkoutPanel.hidden = false;
+        document.body.style.overflow = 'hidden';
+        renderCheckout();
+    }
+
+    function closeCheckout() {
+        if (checkoutPanel) checkoutPanel.hidden = true;
+        if (cartPanel) cartPanel.hidden = false;
+        if (cartOverlay) cartOverlay.hidden = true;
+        document.body.style.overflow = '';
     }
 
     function applyDelivery() {
@@ -197,6 +288,7 @@
         });
         localStorage.setItem(DELIVERY_KEY, delivery);
         renderCart();
+        renderCheckout();
     }
 
     function openCart() {
@@ -244,6 +336,13 @@
         });
     });
 
+    checkoutDeliveryButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            delivery = button.getAttribute('data-checkout-delivery') === 'DELIVERY' ? 'DELIVERY' : 'PICKUP';
+            applyDelivery();
+        });
+    });
+
     var openButton = document.querySelector('[data-cart-open]');
     if (openButton) {
         openButton.addEventListener('click', openCart);
@@ -257,7 +356,11 @@
     }
     document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
-            closeCart();
+            if (checkoutPanel && !checkoutPanel.hidden) {
+                closeCheckout();
+            } else {
+                closeCart();
+            }
         }
     });
 
@@ -273,7 +376,35 @@
                 return;
             }
             event.preventDefault();
-            showToast('Pesanan dibuat di aplikasi PHP + MySQL (bukan demo statis)');
+            openCheckout();
+        });
+    }
+
+    if (checkoutClose) {
+        checkoutClose.addEventListener('click', closeCheckout);
+    }
+    if (checkoutBack) {
+        checkoutBack.addEventListener('click', closeCheckout);
+    }
+    if (checkoutWhatsApp) {
+        checkoutWhatsApp.addEventListener('click', function (event) {
+            event.preventDefault();
+            var value = totals(cart, delivery);
+            var lines = ['KEDAI KU — Pesanan'];
+            cart.forEach(function (item) {
+                lines.push('- ' + item.name + ' x' + item.qty + ' (' + rupiah(item.price * item.qty) + ')');
+            });
+            lines.push('- Subtotal: ' + rupiah(value.subtotal));
+            if (value.shipping > 0) {
+                lines.push('- Ongkos antar: ' + rupiah(value.shipping));
+            }
+            lines.push('- Pajak: ' + rupiah(value.tax));
+            lines.push('- Total: ' + rupiah(value.total));
+            lines.push('');
+            lines.push('Kirim pesanan via WhatsApp untuk pembayaran / COD.');
+            window.open('https://wa.me/628123456789?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+            closeCheckout();
+            showToast('Pesanan dikirim ke WhatsApp');
         });
     }
 

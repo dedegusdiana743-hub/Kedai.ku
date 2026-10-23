@@ -185,6 +185,38 @@
     </footer>
 </aside>
 
+<aside class="cart-panel" data-checkout-panel role="dialog" aria-modal="true" aria-label="Checkout" hidden>
+    <header class="cart-head">
+        <h2>Checkout</h2>
+        <button class="icon-button" type="button" data-checkout-close aria-label="Tutup checkout">✕</button>
+    </header>
+
+    <div class="cart-body">
+        <p class="muted" data-checkout-note>Ringkasan pesanan sebelum dikirim.</p>
+        <div class="cart-items" data-checkout-items>
+            <p class="cart-empty" data-checkout-empty>Keranjang masih kosong.</p>
+        </div>
+
+        <div class="delivery-switch" role="group" aria-label="Metode pengiriman">
+            <button class="delivery-choice is-selected" type="button" data-checkout-delivery="PICKUP">Ambil sendiri</button>
+            <button class="delivery-choice" type="button" data-checkout-delivery="DELIVERY">Antar</button>
+        </div>
+
+        <div class="summary">
+            <div class="summary-line"><span>Subtotal</span><strong data-checkout-subtotal>Rp0</strong></div>
+            <div class="summary-line"><span>Ongkos antar</span><strong data-checkout-shipping>Rp0</strong></div>
+            <div class="summary-line"><span>Pajak (10%)</span><strong data-checkout-tax>Rp0</strong></div>
+            <div class="summary-line summary-total"><span>Total</span><strong data-checkout-total>Rp0</strong></div>
+        </div>
+    </div>
+
+    <footer class="cart-foot">
+        <button class="btn btn-primary btn-block" type="button" data-checkout-whatsapp>Lanjut ke WhatsApp</button>
+        <button class="btn btn-ghost btn-block" type="button" data-checkout-back>Kembali ke keranjang</button>
+        <p class="tiny muted">Demo statis. Pesanan dikirim lewat WhatsApp.</p>
+    </footer>
+</aside>
+
 <div class="toast" data-toast role="status" aria-live="polite"></div>
 
 <script src="app.js" defer></script>
